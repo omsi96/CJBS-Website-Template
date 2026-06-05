@@ -13,8 +13,9 @@ Your job: implement what the requirements ask for **without breaking the shared 
    design system. Reuse `src/components/ui/*` and the tokens in `src/app/globals.css`. Never
    introduce new fonts or a new colour palette. **Keep new screens on-brand by default; only
    customise the look when the student explicitly asks.** See `.claude/memory/design-system.md`.
-2. **The footer is LOCKED.** Never edit `src/components/site/Footer.tsx`. Every project in the
-   cohort shares it. See `.claude/memory/footer-locked.md`.
+2. **The footer is owner-maintained.** `src/components/site/Footer.tsx` is shared across the
+   cohort, so treat changes as deliberate, not casual. Edit it when the facilitator/repo owner
+   asks; otherwise leave it alone. See `.claude/memory/footer-locked.md`.
 3. **Reuse the baseline.** Auth (`src/lib/auth.ts`), the DB client (`src/lib/db.ts`), and the
    AI helper (`src/lib/ai.ts`) are done. Import them — don't reinvent them.
 4. **Stay inside the architecture.** New data → a Prisma model + `npm run db:push`. New screen →

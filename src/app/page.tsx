@@ -36,9 +36,6 @@ export default async function LandingPage() {
         />
         <div className="mx-auto grid max-w-6xl gap-10 px-6 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:py-28">
           <div className="animate-rise">
-            <Badge tone="yellow" className="mb-6">
-              Built in a CODED workshop · Cambridge Judge Business School
-            </Badge>
             <h1 className="font-display text-5xl font-extrabold leading-[0.95] tracking-tight text-cjbs-ink sm:text-6xl">
               Leading business <span className="text-cjbs-crimson">minds</span>.
               <br />
@@ -64,10 +61,6 @@ export default async function LandingPage() {
                 <Button size="lg" variant="outline">Explore programmes</Button>
               </a>
             </div>
-
-            <p className="mt-5 font-mono text-xs uppercase tracking-widest text-cjbs-muted">
-              Demo login · MBA-2026-0142 · student1234
-            </p>
           </div>
 
           {/* Hero card / crest */}
