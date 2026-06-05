@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   CJBS x CODED design tokens  (LOCKED — see .claude/memory/design-system.md)
+   Edit colours/fonts here only with intent; the whole site reads from these.
+   ========================================================================== */
+@theme {
+  /* Brand */
+  --color-cjbs-yellow: #ffc72c; /* Cambridge Yellow — house accent */
+  --color-cjbs-crimson: #a30234; /* shield crimson */
+  --color-cjbs-navy: #0b2545; /* deep institutional navy */
+
+  /* Neutrals */
+  --color-cjbs-ink: #16181d; /* primary text */
+  --color-cjbs-muted: #5b5e66; /* secondary text */
+  --color-cjbs-line: #e6e7ea; /* borders / hairlines */
+  --color-cjbs-paper: #f6f6f3; /* off-white panel bg */
+
+  /* Type */
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-sans: "Hanken Grotesk", system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+}
+
+/* Extra height token used by Button size="lg" */
+@layer base {
+  :root {
+    --spacing-13: 3.25rem;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-cjbs-ink);
+    background: #ffffff;
+    -webkit-font-smoothing: antialiased;
+  }
+  .h-13 {
+    height: 3.25rem;
+  }
+  .font-display {
+    font-family: var(--font-display);
+  }
+}
+
+/* Subtle entrance animation reused across the landing page */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-rise {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}

@@ -1,0 +1,87 @@
+// ============================================================================
+//  Prisma schema — CJBS x CODED workshop template
+// ----------------------------------------------------------------------------
+//  HOW TO ADD A FEATURE'S DATA:
+//   1. Add a model below (copy the style of `Elective`).
+//   2. Run:  npm run db:push      (updates dev.db, no migration files needed)
+//   3. Optionally add seed rows in prisma/seed.ts, then: npm run db:seed
+//   The generated client is imported via `@/lib/db` (see src/lib/db.ts).
+//
+//  The `Student` and `Staff` models are the SHARED BASELINE — every project
+//  reuses them for auth. The `Elective*` models are an EXAMPLE vertical slice
+//  you can delete and replace with your own project's tables.
+// ============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+//  SHARED BASELINE — do not remove. Auth + the seeded community live here.
+// ---------------------------------------------------------------------------
+
+model Student {
+  id            String   @id @default(cuid())
+  cjbsId        String   @unique // login username, e.g. "MBA-2026-0142"
+  name          String
+  email         String   @unique
+  program       String // "MBA" | "MFin" | "MST" | "MAcc" | "EMBA" | "PhD"
+  cohort        String // e.g. "2026"
+  avatarInitials String
+  // Workshop demo password (plain text on purpose — see README/auth-and-seed.md).
+  // In a real app you would store a bcrypt/argon2 hash instead.
+  password      String   @default("student1234")
+  createdAt     DateTime @default(now())
+
+  electiveSelections ElectiveSelection[]
+}
+
+model Staff {
+  id            String   @id @default(cuid())
+  staffId       String   @unique // login username, e.g. "STAFF-014"
+  name          String
+  email         String   @unique
+  role          String // "Programme Director" | "Careers" | "Admissions" | ...
+  department    String
+  avatarInitials String
+  password      String   @default("staff1234")
+  createdAt     DateTime @default(now())
+}
+
+// ---------------------------------------------------------------------------
+//  EXAMPLE DOMAIN — "Elective Selections" vertical slice.
+//  Delete these two models when you start your own project, or keep them as a
+//  reference for how a feature wires schema -> seed -> page.
+// ---------------------------------------------------------------------------
+
+model Elective {
+  id          String   @id @default(cuid())
+  code        String   @unique // "E-501"
+  title       String
+  department  String
+  faculty     String
+  credits     Int
+  capacity    Int
+  term        String // "Michaelmas" | "Lent" | "Easter"
+  schedule    String // "Tue 14:00–16:00"
+  description String
+
+  selections ElectiveSelection[]
+}
+
+model ElectiveSelection {
+  id         String   @id @default(cuid())
+  student    Student  @relation(fields: [studentId], references: [id])
+  studentId  String
+  elective   Elective @relation(fields: [electiveId], references: [id])
+  electiveId String
+  status     String   @default("selected") // "selected" | "waitlisted" | "confirmed"
+  createdAt  DateTime @default(now())
+
+  @@unique([studentId, electiveId])
+}
